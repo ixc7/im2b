@@ -26,7 +26,7 @@ const getChar = input => {
   return String.fromCharCode(0x2800 + total)
 }
 
-const main = (imageURL = '', asciiWidth = 30, options = {}) => {
+const main = (imageURL = '', asciiWidth = process.stdout.columns || 30, options = {}) => {
   let ascii = ''
   if (!options.colors) options.colors = {
     red: 1,
@@ -69,7 +69,11 @@ const main = (imageURL = '', asciiWidth = 30, options = {}) => {
           for (let x = 0; x < 2; x += 1) {
             for (let y = 0; y < 4; y += 1) {
               const cell = ctx.getImageData(imgx + x, imgy + y, 1, 1).data
-              const avg = (cell[0] / options.colors.red + cell[1] / options.colors.green + cell[2] / options.colors.blue) / 3
+              const avg = (
+                cell[0] / options.colors.red + 
+                cell[1] / options.colors.green + 
+                cell[2] / options.colors.blue
+              ) / 3
               // inverted.
               // if (avg < 128) current[cindex] = 1
               
@@ -87,10 +91,8 @@ const main = (imageURL = '', asciiWidth = 30, options = {}) => {
       resolve(ascii)
     }
 
-    img.onerror = error => {
-      reject(error)
-    }
-
+    img.onerror = error => reject(error)
+    
     img.src = imageURL
   })
 }
