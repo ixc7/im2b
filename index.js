@@ -2,23 +2,28 @@ import app from 'canvas'
 const { Image, createCanvas } = app
 
 const getChar = input => {
-  let allZeros = true
-  let total_val
+  let nonZero = false
+  let total = 4
 
-  for (let i = 0; i < input.length; i++) {
+  for (let i = 0; i < input.length; i+= 1) {
     if (input[i] != 0) {
-      allZeros = false
+      nonZero = true
       break
     }
   }
 
-  if (!allZeros) {
-    total_val = (input[0] << 0) + (input[1] << 1) + (input[2] << 2) + (input[4] << 3) + (input[5] << 4) + (input[6] << 5) + (input[3] << 6) + (input[7] << 7)
-  } else {
-    total_val = 4
-  }
-
-  return String.fromCharCode(0x2800 + total_val)
+  if (nonZero) total = (
+    (input[0] << 0) + 
+    (input[1] << 1) + 
+    (input[2] << 2) + 
+    (input[4] << 3) + 
+    (input[5] << 4) + 
+    (input[6] << 5) + 
+    (input[3] << 6) + 
+    (input[7] << 7)
+  )
+  
+  return String.fromCharCode(0x2800 + total)
 }
 
 const main = (imageURL = '', asciiWidth = 30, options = {}) => {
@@ -65,8 +70,10 @@ const main = (imageURL = '', asciiWidth = 30, options = {}) => {
             for (let y = 0; y < 4; y += 1) {
               const cell = ctx.getImageData(imgx + x, imgy + y, 1, 1).data
               const avg = (cell[0] / options.colors.red + cell[1] / options.colors.green + cell[2] / options.colors.blue) / 3
-
-              if (avg < 128) current[cindex] = 1
+              // inverted.
+              // if (avg < 128) current[cindex] = 1
+              
+              if (avg > 128) current[cindex] = 1
               cindex += 1
             }
           }

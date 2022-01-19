@@ -1,6 +1,6 @@
 {
-  "name": "i2b1",
-  "version": "0.0.0",
+  "name": "im2b",
+  "version": "0.0.1",
   "main": "index.js",
   "type": "module",
   "dependencies": {

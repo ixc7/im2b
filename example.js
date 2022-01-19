@@ -1,3 +1,3 @@
-import i2b from './index.js'
+import im2b from './index.js'
 
-console.log( await i2b('https://i.nuuls.com/LAOzc.png', 30))
+console.log(await im2b('dont-shoot.jpg', 100))
