@@ -1,0 +1,9 @@
+{
+  "name": "i2b1",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "canvas": "^2.9.0"
+  }
+}
